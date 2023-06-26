@@ -1,0 +1,19 @@
+.section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px;
+}
+
+.section h3 {
+  margin: 0;
+}
+
+.image {
+  border-radius: 50%;
+}
+
+.button {
+  margin-top: 16px;
+}
