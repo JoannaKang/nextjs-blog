@@ -15,3 +15,16 @@ export async function getMainPosts(): Promise<Post[]> {
   const data = await fs.readFile(filePath, "utf-8");
   return JSON.parse(data);
 }
+
+export async function getPostContents(params: string) {
+  const filePath = path.join(
+    process.cwd(),
+    "public",
+    "data",
+    "posts",
+    `${params}.md`
+  );
+  const post = await fs.readFile(filePath, "utf-8");
+  console.log("💡", post);
+  return post;
+}

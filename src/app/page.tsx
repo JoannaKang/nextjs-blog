@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { getMainPosts } from "@/service/posts";
-import ContentCards from "@/components/contentCard";
+import ContentCards from "@/components/contentCard/contentCard";
 import styles from "./page.module.css";
 
 export default async function Home() {
