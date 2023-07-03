@@ -1,5 +1,6 @@
 import path from "path";
 import { promises as fs } from "fs";
+import next from "next";
 
 export interface Post {
   title: string;
@@ -10,6 +11,11 @@ export interface Post {
   featured: boolean;
 }
 
+interface LinksProp {
+  prevContent: Post;
+  nextContent: Post;
+}
+
 export async function getMainPosts(): Promise<Post[]> {
   const filePath = path.join(process.cwd(), "public", "data", "posts.json");
   const data = await fs.readFile(filePath, "utf-8");
@@ -17,8 +23,6 @@ export async function getMainPosts(): Promise<Post[]> {
 }
 
 export async function getPostContents(params: string) {
-  //console.log("💡", getPrevNextLink(params));
-
   const filePath = path.join(
     process.cwd(),
     "public",
@@ -30,11 +34,16 @@ export async function getPostContents(params: string) {
   return post;
 }
 
-// async function getPrevNextLink(currentPost: string) {
-//   const posts = await getMainPosts();
-//   const currentIndex = posts.findIndex((post) => {
-//     post.path === currentPost;
-//   });
-//   console.log("🟡", currentIndex);
-//   return {};
-// }
+export async function getPrevNextLinks(
+  currentPost: string
+): Promise<LinksProp> {
+  const posts = await getMainPosts();
+
+  const currentIndex = posts.findIndex((post) => post.path === currentPost);
+  const prevIndex = currentIndex === 0 ? posts.length - 1 : currentIndex - 1;
+  const nextIndex = (currentIndex + 1) % posts.length;
+  return {
+    prevContent: posts[prevIndex],
+    nextContent: posts[nextIndex],
+  };
+}
