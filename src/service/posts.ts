@@ -17,6 +17,8 @@ export async function getMainPosts(): Promise<Post[]> {
 }
 
 export async function getPostContents(params: string) {
+  //console.log("💡", getPrevNextLink(params));
+
   const filePath = path.join(
     process.cwd(),
     "public",
@@ -25,6 +27,14 @@ export async function getPostContents(params: string) {
     `${params}.md`
   );
   const post = await fs.readFile(filePath, "utf-8");
-  console.log("💡", post);
   return post;
 }
+
+// async function getPrevNextLink(currentPost: string) {
+//   const posts = await getMainPosts();
+//   const currentIndex = posts.findIndex((post) => {
+//     post.path === currentPost;
+//   });
+//   console.log("🟡", currentIndex);
+//   return {};
+// }

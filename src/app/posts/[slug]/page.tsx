@@ -1,6 +1,6 @@
-import ReactMarkdown from "react-markdown";
-
 import { getPostContents } from "@/service/posts";
+
+import MarkdownSection from "@/components/markdownSection/markdownSection";
 
 type Props = {
   params: {
@@ -10,6 +10,5 @@ type Props = {
 
 export default async function PostPage({ params: { slug } }: Props) {
   const post = await getPostContents(slug);
-  console.log(post);
-  return <ReactMarkdown>{post}</ReactMarkdown>;
+  return <MarkdownSection post={post} />;
 }
